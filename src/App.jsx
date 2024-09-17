@@ -5,6 +5,9 @@ import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 
 function App() {
+  // SelectedProjectId set to undefined will render NoProjectSelected component
+  // SelectedProjectId set to null will render NewProject component
+  // SelectedProjectId set to a project id will render the respective project
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
@@ -15,6 +18,15 @@ function App() {
       return {
         ...prevState,
         selectedProjectId: null,
+      };
+    });
+  }
+
+  function handleCancelAddProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
       };
     });
   }
@@ -38,7 +50,9 @@ function App() {
   let content;
 
   if (projectsState.selectedProjectId === null) {
-    content = <NewProject onAdd={handleAddProject} />;
+    content = (
+      <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject} />
+    );
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
