@@ -11,8 +11,16 @@ const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
       open() {
         dialog.current.showModal();
       },
+      close() {
+        dialog.current.hideModal();
+      },
     };
   });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dialog.current.close();
+  }
 
   return createPortal(
     <dialog
@@ -20,7 +28,7 @@ const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
       className="backdrop:bg-stone-900/90 p-4 rounded-md shadow-md"
     >
       {children}
-      <form method={dialog} className="mt-4 text-right">
+      <form className="mt-4 text-right" onSubmit={handleSubmit}>
         <Button>{buttonCaption}</Button>
       </form>
     </dialog>,
