@@ -14,6 +14,9 @@ function App() {
     projects: [],
     tasks: [],
   });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleToggleSidebar = () => setIsSidebarOpen((prevState) => !prevState);
 
   function handleAddTask(text) {
     setProjectsState((prevState) => {
@@ -128,6 +131,8 @@ function App() {
         projects={projectsState.projects}
         onSelectProject={handleSelectProject}
         selectedProjectId={projectsState.selectedProjectId}
+        toggleSidebar={handleToggleSidebar}
+        isOpen={isSidebarOpen}
       />
       {content}
     </main>
