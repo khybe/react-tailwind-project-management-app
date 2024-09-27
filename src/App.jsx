@@ -1,22 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import ProjectsSidebar from "./components/ProjectsSidebar";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import SelectedProject from "./components/SelectedProject";
 
+// SelectedProjectId set to undefined will render NoProjectSelected component
+// SelectedProjectId set to null will render NewProject component
+// SelectedProjectId set to a project id will render the respective project
+const initialProjectsState = {
+  selectedProjectId: undefined,
+  projects: [],
+  tasks: [],
+};
+
 function App() {
-  // SelectedProjectId set to undefined will render NoProjectSelected component
-  // SelectedProjectId set to null will render NewProject component
-  // SelectedProjectId set to a project id will render the respective project
-  const [projectsState, setProjectsState] = useState({
-    selectedProjectId: undefined,
-    projects: [],
-    tasks: [],
-  });
+  const [projectsState, setProjectsState] = useState(
+    JSON.parse(localStorage.getItem("projectsState")) || initialProjectsState
+  );
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleToggleSidebar = () => setIsSidebarOpen((prevState) => !prevState);
+
+  // Save projectsState to localStorage whenever it changes.
+  useEffect(() => {
+    localStorage.setItem("projectsState", JSON.stringify(projectsState));
+  }, [projectsState]);
 
   function handleAddTask(text) {
     setProjectsState((prevState) => {
