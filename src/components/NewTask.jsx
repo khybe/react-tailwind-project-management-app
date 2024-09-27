@@ -28,7 +28,7 @@ export default function NewTask({ onAdd }) {
           Please enter a valid text before adding it to the tasks collection.
         </p>
       </Modal>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         <input
           type="text"
           className="w-64 px-2 py-1 rounded-sm bg-stone-200"
