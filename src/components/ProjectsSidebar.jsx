@@ -1,13 +1,20 @@
+import { useProjectsContext } from "../context/projectContext";
 import Button from "./Button";
 
-export default function ProjectsSidebar({
-  onStartAddProject,
-  projects,
-  onSelectProject,
-  selectedProjectId,
-  isOpen,
-  toggleSidebar,
-}) {
+export default function ProjectsSidebar({ isOpen, toggleSidebar }) {
+  const { projectsState, dispatch } = useProjectsContext();
+  const { projects, selectedProjectId } = projectsState;
+
+  function handleStartAddProject() {
+    dispatch({ type: "START_ADD_PROJECT" });
+    toggleSidebar(); // Toggle sidebar on start add project
+  }
+
+  function handleSelectProject(id) {
+    dispatch({ type: "SELECT_PROJECT", payload: id });
+    toggleSidebar(); // Toggle sidebar on project selection
+  }
+
   return (
     <>
       <Button
@@ -35,14 +42,7 @@ export default function ProjectsSidebar({
             Your Projects
           </h2>
           <div>
-            <Button
-              onClick={() => {
-                onStartAddProject();
-                toggleSidebar();
-              }}
-            >
-              + Add Project
-            </Button>
+            <Button onClick={handleStartAddProject}>+ Add Project</Button>
           </div>
           <ul className="mt-8">
             {projects.map((project) => {
@@ -59,10 +59,7 @@ export default function ProjectsSidebar({
                 <li key={project.id}>
                   <button
                     className={cssClasses}
-                    onClick={() => {
-                      onSelectProject(project.id);
-                      toggleSidebar(); // Toggle sidebar on project selection
-                    }}
+                    onClick={() => handleSelectProject(project.id)}
                   >
                     {project.title}
                   </button>

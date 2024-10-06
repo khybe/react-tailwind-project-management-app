@@ -1,9 +1,11 @@
 import { useRef } from "react";
 
+import { useProjectsContext } from "../context/projectContext";
 import Input from "./Input";
 import Modal from "./Modal";
 
-export default function NewProject({ onAdd, onCancel }) {
+export default function NewProject() {
+  const { dispatch } = useProjectsContext();
   const modal = useRef();
 
   const title = useRef();
@@ -25,11 +27,19 @@ export default function NewProject({ onAdd, onCancel }) {
       return;
     }
 
-    onAdd({
+    const projectId = Math.random();
+    const newProject = {
       title: enteredTitle,
       description: enteredDescription,
       dueDate: enteredDueDate,
-    });
+      id: projectId,
+    };
+
+    dispatch({ type: "ADD_PROJECT", payload: newProject });
+  }
+
+  function handleCancelProject() {
+    dispatch({ type: "CANCEL_ADD_PROJECT" });
   }
 
   return (
@@ -48,7 +58,7 @@ export default function NewProject({ onAdd, onCancel }) {
           <li>
             <button
               className="text-stone-800 hover:text-stone-950"
-              onClick={onCancel}
+              onClick={handleCancelProject}
             >
               Cancel
             </button>

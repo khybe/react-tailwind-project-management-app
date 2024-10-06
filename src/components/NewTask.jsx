@@ -1,8 +1,10 @@
 import { useState, useRef } from "react";
 
+import { useProjectsContext } from "../context/projectContext";
 import Modal from "./Modal";
 
-export default function NewTask({ onAdd }) {
+export default function NewTask() {
+  const { projectsState, dispatch } = useProjectsContext();
   const modal = useRef();
   const [enteredTask, setEnteredTask] = useState("");
 
@@ -10,13 +12,20 @@ export default function NewTask({ onAdd }) {
     setEnteredTask(event.target.value);
   }
 
-  function handleClick() {
+  function handleAddTask() {
     if (enteredTask.trim() === "") {
       modal.current.open();
       return;
     }
 
-    onAdd(enteredTask);
+    const taskId = Math.random();
+    const newTask = {
+      text: enteredTask,
+      projectId: projectsState.selectedProjectId,
+      id: taskId,
+    };
+    dispatch({ type: "ADD_TASK", payload: newTask });
+
     setEnteredTask("");
   }
 
@@ -37,7 +46,7 @@ export default function NewTask({ onAdd }) {
         />
         <button
           className="text-stone-700 hover:text-stone-950"
-          onClick={handleClick}
+          onClick={handleAddTask}
         >
           Add Task
         </button>

@@ -1,7 +1,10 @@
+import { useProjectsContext } from "../context/projectContext";
 import noProjectImage from "../assets/no-projects.png";
 import Button from "./Button";
 
-export default function NoProjectSelected({ onStartAddProject }) {
+export default function NoProjectSelected() {
+  const { dispatch } = useProjectsContext();
+
   return (
     <div className="mt-24 text-center w-2/3 m-auto">
       <img
@@ -16,7 +19,9 @@ export default function NoProjectSelected({ onStartAddProject }) {
         Select a project or get started with a new one
       </p>
       <p className="mt-8">
-        <Button onClick={onStartAddProject}>Create new project</Button>
+        <Button onClick={() => dispatch({ type: "START_ADD_PROJECT" })}>
+          Create new project
+        </Button>
       </p>
     </div>
   );
