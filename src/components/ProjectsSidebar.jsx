@@ -1,5 +1,6 @@
 import { useProjectsContext } from "../context/projectContext";
 import Button from "./Button";
+import Backdrop from "./Backdrop";
 
 export default function ProjectsSidebar({ isOpen, toggleSidebar }) {
   const { projectsState, dispatch } = useProjectsContext();
@@ -24,12 +25,7 @@ export default function ProjectsSidebar({ isOpen, toggleSidebar }) {
         {isOpen ? "Close Sidebar" : "Open Sidebar"}
       </Button>
 
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-          onClick={toggleSidebar} // Close sidebar on backdrop click
-        />
-      )}
+      {isOpen && <Backdrop toggleSidebar={toggleSidebar} />}
 
       <aside
         className={`fixed inset-y-0 top-16 md:top-0 left-0 transform transition-transform 
