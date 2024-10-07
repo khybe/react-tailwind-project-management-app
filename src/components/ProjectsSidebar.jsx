@@ -1,6 +1,6 @@
 import { useProjectsContext } from "../context/projectContext";
-import Button from "./Button";
-import Backdrop from "./Backdrop";
+import Button from "./UI/Button";
+import Backdrop from "./UI/Backdrop";
 
 export default function ProjectsSidebar({ isOpen, toggleSidebar }) {
   const { projectsState, dispatch } = useProjectsContext();

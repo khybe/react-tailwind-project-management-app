@@ -1,8 +1,8 @@
 import { useRef } from "react";
 
 import { useProjectsContext } from "../context/projectContext";
-import Input from "./Input";
-import Modal from "./Modal";
+import Input from "./UI/Input";
+import Modal from "./UI/Modal";
 
 export default function NewProject() {
   const { dispatch } = useProjectsContext();

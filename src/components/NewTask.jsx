@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 
 import { useProjectsContext } from "../context/projectContext";
-import Modal from "./Modal";
+import Modal from "./UI/Modal";
 
 export default function NewTask() {
   const { projectsState, dispatch } = useProjectsContext();
