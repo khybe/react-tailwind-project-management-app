@@ -6,6 +6,7 @@ import Button from "./Button";
 const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
   const dialog = useRef();
 
+  // Expose open and close methods to parent components
   useImperativeHandle(ref, () => {
     return {
       open() {
@@ -19,7 +20,7 @@ const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dialog.current.close();
+    dialog.current.close(); // Close modal on form submission
   }
 
   return createPortal(

@@ -6,14 +6,16 @@ export default function ProjectsSidebar({ isOpen, toggleSidebar }) {
   const { projectsState, dispatch } = useProjectsContext();
   const { projects, selectedProjectId } = projectsState;
 
+  // Start adding a new project and toggle the sidebar
   function handleStartAddProject() {
     dispatch({ type: "START_ADD_PROJECT" });
-    toggleSidebar(); // Toggle sidebar on start add project
+    toggleSidebar();
   }
 
+  // Select a project and toggle the sidebar
   function handleSelectProject(id) {
     dispatch({ type: "SELECT_PROJECT", payload: id });
-    toggleSidebar(); // Toggle sidebar on project selection
+    toggleSidebar();
   }
 
   return (

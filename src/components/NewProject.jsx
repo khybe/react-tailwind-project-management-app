@@ -17,7 +17,7 @@ export default function NewProject() {
     const enteredDescription = description.current.value;
     const enteredDueDate = dueDate.current.value;
 
-    // Validation...
+    // Show modal if any input is empty
     if (
       enteredTitle.trim() === "" ||
       enteredDescription.trim() === "" ||
@@ -35,6 +35,7 @@ export default function NewProject() {
       id: projectId,
     };
 
+    // Dispatch action to add new project
     dispatch({ type: "ADD_PROJECT", payload: newProject });
   }
 

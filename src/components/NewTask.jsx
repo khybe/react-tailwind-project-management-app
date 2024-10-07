@@ -13,6 +13,7 @@ export default function NewTask() {
   }
 
   function handleAddTask() {
+    // Show modal if the task input is empty
     if (enteredTask.trim() === "") {
       modal.current.open();
       return;
@@ -26,6 +27,7 @@ export default function NewTask() {
     };
     dispatch({ type: "ADD_TASK", payload: newTask });
 
+    // Clear input after adding the task
     setEnteredTask("");
   }
 

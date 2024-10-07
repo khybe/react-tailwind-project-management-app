@@ -4,10 +4,12 @@ import NewTask from "./NewTask";
 export default function Tasks() {
   const { projectsState, dispatch } = useProjectsContext();
 
+  // Filter tasks specific to the selected project
   const projectSpecificTasks = projectsState.tasks.filter(
     (task) => task.projectId === projectsState.selectedProjectId
   );
 
+  // Dispatch action to delete a task
   const handleDeleteTask = (id) => {
     dispatch({ type: "DELETE_TASK", payload: id });
   };

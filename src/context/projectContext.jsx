@@ -1,8 +1,9 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 
-// SelectedProjectId set to undefined will render NoProjectSelected component
-// SelectedProjectId set to null will render NewProject component
-// SelectedProjectId set to a project id will render the respective project
+//  selectedProjectId:
+//  - undefined: No project selected (renders NoProjectSelected).
+//  - null: Adding a new project (renders NewProject).
+//  - <project_id>: selected project (renders the respective project).
 const initialProjectsState = {
   selectedProjectId: undefined,
   projects: [],
@@ -27,10 +28,10 @@ function projectReducer(state, action) {
         ...state,
         selectedProjectId: undefined,
         projects: state.projects.filter(
-          (project) => project.id !== state.selectedProjectId
+          (project) => project.id !== state.selectedProjectId // Remove selected project
         ),
         tasks: state.tasks.filter(
-          (task) => task.projectId !== state.selectedProjectId
+          (task) => task.projectId !== state.selectedProjectId // Remove tasks associated with deleted project
         ),
       };
     case "SELECT_PROJECT":
@@ -50,7 +51,7 @@ function projectReducer(state, action) {
   }
 }
 
-// Context creation
+// Create context for project management
 const ProjectContext = createContext();
 
 // Custom hook for using the context
@@ -62,7 +63,7 @@ export function useProjectsContext() {
 export function ProjectProvider({ children }) {
   const [projectsState, dispatch] = useReducer(
     projectReducer,
-    JSON.parse(localStorage.getItem("projectsState")) || initialProjectsState
+    JSON.parse(localStorage.getItem("projectsState")) || initialProjectsState // Load state from localStorage or use initial state
   );
 
   // Sync projectsState with localStorage

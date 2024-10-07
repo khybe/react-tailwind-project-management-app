@@ -18,6 +18,7 @@ export default function NoProjectSelected() {
       <p className="text-stone-400 mb-4">
         Select a project or get started with a new one
       </p>
+      {/* Button to start adding a new project */}
       <p className="mt-8">
         <Button onClick={() => dispatch({ type: "START_ADD_PROJECT" })}>
           Create new project

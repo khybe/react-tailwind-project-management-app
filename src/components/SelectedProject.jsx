@@ -4,10 +4,12 @@ import Tasks from "./Tasks";
 export default function SelectedProject() {
   const { projectsState, dispatch } = useProjectsContext();
 
+  // Find the currently selected project from the list of projects
   const selectedProject = projectsState.projects.find(
     (project) => project.id === projectsState.selectedProjectId
   );
 
+  // Format the project's due date
   const formattedDate = new Date(selectedProject.dueDate).toLocaleDateString(
     "en-US",
     {
@@ -17,6 +19,7 @@ export default function SelectedProject() {
     }
   );
 
+  // Dispatch action to delete the currently selected project
   function handleDeleteProject() {
     dispatch({ type: "DELETE_PROJECT" });
   }

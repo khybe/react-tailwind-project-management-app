@@ -7,13 +7,14 @@ import NoProjectSelected from "./components/NoProjectSelected";
 import SelectedProject from "./components/SelectedProject";
 
 function App() {
-  const { projectsState } = useProjectsContext();
+  const { projectsState } = useProjectsContext(); // Accessing project state from context
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleToggleSidebar = () => setIsSidebarOpen((prevState) => !prevState);
 
-  let content = <SelectedProject />;
+  let content = <SelectedProject />; // Default content
 
+  // Conditional rendering based on selected project id
   if (projectsState.selectedProjectId === null) {
     content = <NewProject />;
   } else if (projectsState.selectedProjectId === undefined) {
