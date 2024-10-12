@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { lazy, useState, Suspense } from "react";
 
 import { useProjectsContext } from "./context/projectContext";
 import ProjectsSidebar from "./components/ProjectsSidebar";
-import NewProject from "./components/NewProject";
-import NoProjectSelected from "./components/NoProjectSelected";
-import SelectedProject from "./components/SelectedProject";
+
+const NewProject = lazy(() => import("./components/NewProject"));
+const NoProjectSelected = lazy(() => import("./components/NoProjectSelected"));
+const SelectedProject = lazy(() => import("./components/SelectedProject"));
 
 function App() {
   const { projectsState } = useProjectsContext(); // Accessing project state from context
@@ -23,11 +24,13 @@ function App() {
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar
-        toggleSidebar={handleToggleSidebar}
-        isOpen={isSidebarOpen}
-      />
-      {content}
+      <Suspense fallback={<p className="mx-auto my-32 text-3xl">Loading...</p>}>
+        <ProjectsSidebar
+          toggleSidebar={handleToggleSidebar}
+          isOpen={isSidebarOpen}
+        />
+        {content}
+      </Suspense>
     </main>
   );
 }
